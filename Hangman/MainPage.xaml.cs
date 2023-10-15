@@ -25,6 +25,15 @@ namespace Hangman
                 OnPropertyChanged();
             }
         }
+        public string Message
+        {
+            get => message;
+            set
+            {
+                message = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Fields
@@ -49,6 +58,7 @@ namespace Hangman
         List<char> guessed =
             new List<char>();
         private List<char> letters = new List<char>();
+        private string message;
         #endregion
 
         public MainPage()
@@ -75,6 +85,41 @@ namespace Hangman
             Spotlight = string.Join(' ', temp);
         }
 
+        private void HandleGuess(char letter)
+        {
+            if(guessed.IndexOf(letter) == -1)
+            {
+                guessed.Add(letter);
+            }
+            if(answer.IndexOf(letter) >= 0) 
+            {
+                CalculateWord(answer, guessed);
+                CheckIfGameWon();
+            }
+        }
+
+        private void CheckIfGameWon()
+        {
+           if(Spotlight.Replace(" ", "") == answer)
+            {
+                Message = "You win!";
+            }
+        }
+
         #endregion
+
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            var btn = sender as Button;
+            if (btn != null)
+            {
+                var letter = btn.Text;
+                btn.IsEnabled = false;
+                HandleGuess(letter[0]);
+            }
+        }
+
+        
     }
 }

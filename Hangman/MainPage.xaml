@@ -4,7 +4,7 @@
              x:Class="Hangman.MainPage">
 
     <Grid RowDefinitions=".6*, .4*">
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10">
             <Label
             FontAttributes="Bold"
             HorizontalOptions="Center"
@@ -19,7 +19,7 @@
             <Label
                 FontSize="Large"
                 HorizontalTextAlignment="Center"
-                Text="You lost!"/>
+                Text="{Binding Message}"/>
             <Button HorizontalOptions="Center"
                     Text="Reset"
                     WidthRequest="100"/>
@@ -32,7 +32,8 @@
                 <DataTemplate>
                     <Button HeightRequest="50"
                             WidthRequest="50"
-                            Text="{Binding .}"/>
+                            Text="{Binding .}"
+                            Clicked="Button_Clicked"/>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </FlexLayout>

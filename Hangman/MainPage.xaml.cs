@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Hangman
 {
@@ -34,6 +35,25 @@ namespace Hangman
                 OnPropertyChanged();
             }
         }
+
+        public string GameStatus
+        {
+            get => gameStatus; 
+            set
+            {
+                gameStatus = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CurrentImage
+        {
+            get => currentImage; 
+            set
+            {
+                currentImage = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
 
         #region Fields
@@ -59,6 +79,10 @@ namespace Hangman
             new List<char>();
         private List<char> letters = new List<char>();
         private string message;
+        int mistakes = 0;
+        int maxWrong = 6;
+        private string gameStatus;
+        private string currentImage = "img0.jpg";
         #endregion
 
         public MainPage()
@@ -96,6 +120,21 @@ namespace Hangman
                 CalculateWord(answer, guessed);
                 CheckIfGameWon();
             }
+            else if(answer.IndexOf(letter) == -1)
+            {
+                mistakes++;
+                UpdateStatus();
+                CheckIfGameLost();
+                CurrentImage = $"img{mistakes}.jpg`";
+            }
+        }
+
+        private void CheckIfGameLost()
+        {
+           if(mistakes == maxWrong)
+            {
+                Message = "You lost!!";
+            }
         }
 
         private void CheckIfGameWon()
@@ -104,6 +143,11 @@ namespace Hangman
             {
                 Message = "You win!";
             }
+        }
+
+        private void UpdateStatus()
+        {
+            GameStatus = $"Errors: {mistakes} of {maxWrong}";
         }
 
         #endregion

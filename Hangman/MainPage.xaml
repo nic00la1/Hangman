@@ -20,6 +20,12 @@
                 FontSize="Large"
                 HorizontalTextAlignment="Center"
                 Text="{Binding Message}"/>
+            <!--Tu wyswietla odpowiedz, po przegraniu-->
+            <Label 
+                FontSize="Small"
+                HorizontalOptions="Center"
+                Text="{Binding Answer1}"
+                />
             <Button HorizontalOptions="Center"
                     Text="Reset"
                     WidthRequest="100"

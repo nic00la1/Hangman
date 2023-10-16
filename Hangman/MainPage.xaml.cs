@@ -34,6 +34,17 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+
+    public string Answer1
+    {
+        get => answer1; 
+        set
+        {
+            answer1 = value;
+            OnPropertyChanged();
+        }
+    }
+
     public string GameStatus
     {
         get => gameStatus;
@@ -81,6 +92,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     int maxWrong = 6;
     private string gameStatus;
     private string currentImage = "img0.jpg";
+    private string answer1;
 
     #endregion
 
@@ -135,6 +147,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         {
             Message = "You Lost!!";
             DisableLetters();
+            Answer1 = $"The answer was: {answer}";
         }
     }
 
@@ -198,6 +211,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         Message = "";
         UpdateStatus();
         EnableLetters();
+        Answer1 = "";
     }
 }
 
